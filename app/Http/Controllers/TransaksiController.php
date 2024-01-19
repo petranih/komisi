@@ -34,7 +34,7 @@ class TransaksiController extends Controller
             'total' => 'required',
             'jenis_transaksi' => 'required'
         ]);
-        // return redirect('/transaksi');
+        return redirect('/transaksi');
     }
     // public function transaksi(Request $request)
     // {

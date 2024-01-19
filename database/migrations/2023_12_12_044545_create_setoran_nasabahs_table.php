@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('nasabahs_id')->constrained();
             $table->foreignId('jenis_tabungans_id')->constrained();
-            $table->decimal('jumlah_setoran');
+            $table->integer('jumlah_setoran');
             $table->text('keterangan');
             $table->timestamps();
         });

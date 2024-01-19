@@ -25,15 +25,29 @@ class TransaksiController extends Controller
     }
     public function store(Request $request)
     {
-        $post = transaksi::create([
-            'setoran_nasabahs_id'     => $request->input('setoran_nasabahs_id'),
-            'jenis_transaksi'      => $request->input('jenis_transaksi'),
-            'total'      => $request->input('total')
-        ]);
-        $this->validate($request, [
+        $data = $request->validate([
+            'setoran_nasabahs_id' => 'required',
+            'jenis_transaksi' => 'required',
             'total' => 'required',
-            'jenis_transaksi' => 'required'
         ]);
+
+        $transaksi = new transaksi();
+        $transaksi->setoran_nasabahs_id = $data['setoran_nasabahs_id'];
+        $transaksi->jenis_transaksi = $data['jenis_transaksi'];
+        $transaksi->total = $data['total'];
+        $transaksi->save();
+
+        if ($transaksi->jenis_transaksi == 'simpan') {
+
+            $setoranNasabah = $transaksi->setoran_nasabahs;
+            $p = $setoranNasabah->jumlah_setoran += $transaksi->total = $data['total'];
+            $setoranNasabah->save();
+        } else {
+            $setoranNasabah = setoran_nasabah::where('nasabahs_id', $transaksi->setoran_nasabahs_id)->get();
+            $setoranNasabah = $transaksi->setoran_nasabahs;
+            $setoranNasabah->jumlah_setoran -= $transaksi->total = $data['total'];
+            $setoranNasabah->save();
+        }
         return redirect('/transaksi');
     }
     // public function transaksi(Request $request)

@@ -28,8 +28,7 @@
                         <td>{{ $sn->keterangan }}</td>
                         <td>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                             <a href="setoran/{{$sn->id}}" class="btn btn-outline-secondary" type="button">SETOR</a>
-                             <a href="setoran/tarik" class="btn btn-outline-secondary" type="button">TARIK</a>
+                             <a href="setoran/{{$sn->id}}" class="btn btn-outline-secondary" type="button">Update</a>
                                 <form action="/setoran/{{$sn->id}}" method="POST">
                                     @method('DELETE')
                                     @csrf
